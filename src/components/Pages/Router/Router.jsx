@@ -6,6 +6,7 @@ import AddProduct from '../AddProduct/AddProduct';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
 import Orders from '../Orders/Orders';
 import Contact from '../Contact/Contact';
+import Watches from '../../Shared/Watches/Watches';
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: '/contact',
         element: <Contact></Contact>,
+      },
+      {
+        path: '/watches',
+        element: <Watches></Watches>,
       },
     ],
   },

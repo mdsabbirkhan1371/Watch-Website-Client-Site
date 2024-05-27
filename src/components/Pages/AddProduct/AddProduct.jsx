@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 const AddProduct = () => {
   const handleAddProduct = event => {
     event.preventDefault();
@@ -20,6 +22,32 @@ const AddProduct = () => {
       photo,
     };
     console.log(watch);
+
+    // send data to database
+
+    try {
+      fetch('http://localhost:5000/watches', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(watch),
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          if (data.insertedId) {
+            Swal.fire({
+              position: 'top',
+              icon: 'success',
+              title: 'Your Product Has Been Added',
+              showConfirmButton: true,
+            });
+          }
+        });
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div>

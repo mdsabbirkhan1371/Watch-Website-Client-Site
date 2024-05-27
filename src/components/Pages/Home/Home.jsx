@@ -1,7 +1,9 @@
+import Watches from '../../Shared/Watches/Watches';
+
 const Home = () => {
   return (
     <div>
-      <h3>This is Home</h3>
+      <Watches></Watches>
     </div>
   );
 };
