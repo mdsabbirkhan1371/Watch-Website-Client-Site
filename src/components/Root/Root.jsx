@@ -4,10 +4,12 @@ import Footer from '../Shared/Footer/Footer';
 
 const Root = () => {
   return (
-    <div>
-      <Header></Header>
-      <Outlet></Outlet>
-      <Footer></Footer>
+    <div className="md:w-max-6xl">
+      <div className="md:mx-10">
+        <Header></Header>
+        <Outlet></Outlet>
+        <Footer></Footer>
+      </div>
     </div>
   );
 };
