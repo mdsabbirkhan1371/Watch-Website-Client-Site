@@ -7,6 +7,7 @@ import UpdateProduct from '../UpdateProduct/UpdateProduct';
 import Orders from '../Orders/Orders';
 import Contact from '../Contact/Contact';
 import Watches from '../../Shared/Watches/Watches';
+import WatchCardDetails from '../WatchCardDetails/WatchCardDetails';
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,12 @@ export const router = createBrowserRouter([
       {
         path: '/watches',
         element: <Watches></Watches>,
+      },
+      {
+        path: '/details/:id',
+        element: <WatchCardDetails></WatchCardDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/watches/${params.id}`),
       },
     ],
   },

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Watch = ({ watch }) => {
   console.log(watch);
-  const { name, photo, description, price } = watch;
+  const { _id, name, photo, price, sellerName } = watch;
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
@@ -11,10 +12,14 @@ const Watch = ({ watch }) => {
       </figure>
       <div className="card-body ">
         <h2 className="card-title">{name}</h2>
-        <p className="text-green-300">Price: {price} Tk</p>
-        <p>{description.slice(0, 50)}</p>
+        <div className="flex text-green-300 items-center">
+          <p className="">Price: {price} Tk</p>
+          <p>Seller Name: {sellerName}</p>
+        </div>
         <div className="card-actions">
-          <button className="btn btn-success w-full">See Details</button>
+          <button className="btn w-full btn-error font-bold text-white">
+            <Link to={`/details/${_id}`}>See Details</Link>
+          </button>
         </div>
       </div>
     </div>
