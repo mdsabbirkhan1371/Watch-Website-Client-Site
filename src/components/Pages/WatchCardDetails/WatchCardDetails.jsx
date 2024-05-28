@@ -1,9 +1,43 @@
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const WatchCardDetails = () => {
   const watch = useLoaderData();
-  console.log(watch);
+
   const { _id, name, photo, description, price, quantity, sellerName } = watch;
+
+  const handleDelete = id => {
+    console.log(id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(result => {
+      if (result.isConfirmed) {
+        try {
+          fetch(`http://localhost:5000/watches/${id}`, {
+            method: 'DELETE',
+          })
+            .then(res => res.json())
+            .then(data => {
+              if (data.deletedCount > 0) {
+                Swal.fire({
+                  title: 'Deleted!',
+                  text: 'Your Product has been deleted.',
+                  icon: 'success',
+                });
+              }
+            });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    });
+  };
 
   return (
     <div>
@@ -11,14 +45,27 @@ const WatchCardDetails = () => {
         <div className="p-3">
           <img className=" w-80" src={photo} alt="" />
         </div>
-        <div className="space-y-2 p-3">
-          <h1 className="text-2xl font-bold">Name: {name}</h1>
-          <p>Price: {price} Tk</p>
-          <p>Available Product: {quantity}</p>
-          <p>Seller: {sellerName}</p>
-          <button className="btn btn-block btn-error btn-sm text-white font-bold">
-            Order Now
-          </button>
+        <div className="space-y-2 p-3 flex justify-around">
+          <div>
+            <h1 className="text-2xl font-bold">Name: {name}</h1>
+            <p>Price: {price} Tk</p>
+            <p>Available Product: {quantity}</p>
+            <p>Seller: {sellerName}</p>
+
+            <div className="join join-vertical mt-10 space-y-2">
+              <button className="btn join-item btn-success">
+                <Link to={`/updateProduct/${_id}`}>Update</Link>
+              </button>
+              <button
+                onClick={() => handleDelete(_id)}
+                className="btn join-item btn-error"
+              >
+                Delete
+              </button>
+              <button className="btn btn-primary join-item">Order Now</button>
+            </div>
+          </div>
+          <div></div>
         </div>
       </div>
       <p className=" mb-12 px-5">

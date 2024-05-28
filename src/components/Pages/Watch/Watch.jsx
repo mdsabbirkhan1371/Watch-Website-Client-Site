@@ -17,7 +17,7 @@ const Watch = ({ watch }) => {
           <p>Seller Name: {sellerName}</p>
         </div>
         <div className="card-actions">
-          <button className="btn w-full btn-error font-bold text-white">
+          <button className="btn w-full btn-primary font-bold text-white">
             <Link to={`/details/${_id}`}>See Details</Link>
           </button>
         </div>

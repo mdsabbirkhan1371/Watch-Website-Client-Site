@@ -1,4 +1,20 @@
+import { useLoaderData } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 const UpdateProduct = () => {
+  const watch = useLoaderData();
+  const {
+    name,
+    photo,
+    description,
+    price,
+    quantity,
+    sellerName,
+    deliveryType,
+    _id,
+  } = watch;
+
+  console.log(watch);
   const handleUpdateProduct = event => {
     event.preventDefault();
     const form = event.target;
@@ -20,12 +36,38 @@ const UpdateProduct = () => {
       photo,
     };
     console.log(updateWatch);
+
+    // update watch and send to server
+
+    try {
+      fetch(`http://localhost:5000/watches/${_id}`, {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(updateWatch),
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          if (data.modifiedCount > 0) {
+            Swal.fire({
+              position: 'top',
+              icon: 'success',
+              title: 'Your Product Has Been Updated',
+              showConfirmButton: true,
+            });
+          }
+        });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div>
       <form onSubmit={handleUpdateProduct} className="card-body">
         <h3 className="text-center my-3 text-2xl text-indigo-500 font-semibold">
-          Please Update Your Product Information of :
+          Please Update Your Product Information of : {name}
         </h3>
         {/* watch name and price  */}
         <div className="md:flex gap-4">
@@ -37,6 +79,7 @@ const UpdateProduct = () => {
               type="text"
               placeholder="Watch Name"
               name="name"
+              defaultValue={name}
               className="input input-bordered focus:border-indigo-500"
               required
             />
@@ -49,6 +92,7 @@ const UpdateProduct = () => {
               type="text"
               name="price"
               placeholder="Price"
+              defaultValue={price}
               className="input input-bordered focus:border-indigo-500"
               required
             />
@@ -64,6 +108,7 @@ const UpdateProduct = () => {
               type="text"
               placeholder="Watch Description"
               name="description"
+              defaultValue={description}
               className="input input-bordered focus:border-indigo-500"
               required
             />
@@ -75,6 +120,7 @@ const UpdateProduct = () => {
             <input
               type="text"
               name="quantity"
+              defaultValue={quantity}
               placeholder="Quantity"
               className="input input-bordered focus:border-indigo-500"
               required
@@ -90,6 +136,7 @@ const UpdateProduct = () => {
             <input
               type="text"
               placeholder="Seller Name"
+              defaultValue={sellerName}
               name="sellerName"
               className="input input-bordered focus:border-indigo-500"
               required
@@ -103,6 +150,7 @@ const UpdateProduct = () => {
               type="text"
               name="deliveryType"
               placeholder="Delivery Type"
+              defaultValue={deliveryType}
               className="input input-bordered focus:border-indigo-500"
               required
             />
@@ -116,6 +164,7 @@ const UpdateProduct = () => {
             type="text"
             placeholder="Image URL"
             name="photo"
+            defaultValue={photo}
             className="input input-bordered focus:border-indigo-500"
             required
           />

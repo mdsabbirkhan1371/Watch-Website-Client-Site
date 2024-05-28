@@ -8,6 +8,8 @@ import Orders from '../Orders/Orders';
 import Contact from '../Contact/Contact';
 import Watches from '../../Shared/Watches/Watches';
 import WatchCardDetails from '../WatchCardDetails/WatchCardDetails';
+import SignUp from '../SignUp/SignUp';
+import SignIn from '../SignIn/SignIn';
 
 export const router = createBrowserRouter([
   {
@@ -24,8 +26,10 @@ export const router = createBrowserRouter([
         element: <AddProduct></AddProduct>,
       },
       {
-        path: '/updateProduct',
+        path: '/updateProduct/:id',
         element: <UpdateProduct></UpdateProduct>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/watches/${params.id}`),
       },
       {
         path: '/orders',
@@ -44,6 +48,14 @@ export const router = createBrowserRouter([
         element: <WatchCardDetails></WatchCardDetails>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/watches/${params.id}`),
+      },
+      {
+        path: '/signUp',
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: '/signIn',
+        element: <SignIn></SignIn>,
       },
     ],
   },
