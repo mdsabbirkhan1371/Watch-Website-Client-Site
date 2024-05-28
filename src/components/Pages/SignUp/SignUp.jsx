@@ -37,7 +37,10 @@ const SignUp = () => {
     const password = form.password.value;
     const user = { email: email };
 
-    console.log(user);
+    // console.log(user);
+
+    // clear errr from state
+    setError('');
 
     // create user with email and  password
 

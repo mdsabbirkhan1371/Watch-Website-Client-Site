@@ -1,15 +1,32 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../assets/images/404/logo.svg';
+import { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
 const NavBar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOut();
+  };
+
   const navLinks = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
         <NavLink to="/addProduct">Add_Watch</NavLink>
+      </li>
+      <li>
         <NavLink to="/watches">Watches</NavLink>
-
+      </li>
+      <li>
         <NavLink to="/orders">Orders</NavLink>
+      </li>
+      <li>
         <NavLink to="/contact">Contact</NavLink>
+      </li>
+      <li>
         <NavLink to="/signUp">SignUp</NavLink>
       </li>
     </>
@@ -44,12 +61,21 @@ const NavBar = () => {
         <img className="w-24 rounded-sm" src={logo} alt="" />
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>{navLinks}</li>
-        </ul>
+        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {user ? (
+          <button
+            className="btn btn-primary btn-outline w-36"
+            onClick={handleLogout}
+          >
+            SignOut
+          </button>
+        ) : (
+          <button className="btn btn-primary btn-outline w-36">
+            <Link to="/signIn">Sign In</Link>
+          </button>
+        )}
       </div>
     </div>
   );

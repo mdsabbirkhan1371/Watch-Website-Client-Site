@@ -1,10 +1,12 @@
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from 'firebase/auth';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import auth from '../Firebase/firebase.config';
 import { PropTypes } from 'prop-types';
 
@@ -45,6 +47,23 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
+  // signOut user
+  const logOut = () => {
+    setLoading(true);
+    signOut(auth);
+  };
+
+  // user exist or not check
+  useEffect(() => {
+    const unsubsCribe = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return () => {
+      unsubsCribe();
+    };
+  }, []);
+
   const data = {
     user,
     loading,
@@ -54,6 +73,7 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     error,
     setError,
+    logOut,
   };
   return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 };

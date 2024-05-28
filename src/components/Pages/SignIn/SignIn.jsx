@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const SignIn = () => {
   const { signInWithGoogle, signInWithEmailAndPass, error, setError } =
     useContext(AuthContext);
+
+  const naveigate = useNavigate();
 
   // sign in with google
 
@@ -30,12 +32,16 @@ const SignIn = () => {
     const email = form.email.value;
     const password = form.password.value;
 
+    // clear error message from state
+    setError('');
+
     signInWithEmailAndPass(email, password)
       .then(res => {
         console.log(res.user);
         const user = res.user;
         if (user) {
           toast('Login Successful');
+          naveigate('/');
           form.reset();
         }
       })
