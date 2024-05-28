@@ -1,18 +1,33 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
 
 const SignUp = () => {
-  const { createUser, createUserWithGoogle } = useContext(AuthContext);
+  const { createUser, createUserWithGoogle, error, setError } =
+    useContext(AuthContext);
 
   const handleGoogle = () => {
     // createUser with google
     createUserWithGoogle()
       .then(res => {
         console.log(res.user);
+        const user = res.user;
+        if (user) {
+          toast('User Created Successfully');
+        }
+        const email = { email: user?.email };
+        fetch('http://localhost:5000/users', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(email),
+        });
       })
       .catch(error => {
         console.error(error);
+        setError(error.message);
       });
   };
   const handleSIgnUp = event => {
@@ -29,6 +44,10 @@ const SignUp = () => {
     createUser(email, password)
       .then(result => {
         console.log(result.user);
+        if (result.user) {
+          toast('User Created Successfully');
+          form.reset();
+        }
         fetch('http://localhost:5000/users', {
           method: 'POST',
           headers: {
@@ -39,6 +58,7 @@ const SignUp = () => {
       })
       .catch(error => {
         console.error(error);
+        setError(error.message);
       });
   };
   return (
@@ -80,6 +100,7 @@ const SignUp = () => {
                   <Link to="/signIn"> SignIn Here....</Link>
                 </small>
               </label>
+              {<small className="text-red-600">{error}</small>}
             </div>
             <div className="form-control mt-6">
               <input
@@ -90,14 +111,12 @@ const SignUp = () => {
             </div>
             <div>
               <h3 className="text-center text-2xl text-green-400 border-cyan-400 border-t-2 border-b-2 ">
-                O=R
+                OR
               </h3>
             </div>
           </form>
-          <button
-            onClick={handleGoogle}
-            className="btn btn-primary w-full mt-2"
-          >
+          <ToastContainer></ToastContainer>
+          <button onClick={handleGoogle} className="btn btn-primary w-96 mt-2">
             Continue With Google
           </button>
         </div>
