@@ -18,7 +18,7 @@ const Video = () => {
       </div>
       <div className="grid md:grid-cols-2 gap-5 p-5">
         <div>
-          <img className="w-full" src={warranty} alt="" />
+          <img className="w-full h-96" src={warranty} alt="image" />
         </div>
         <div className="space-y-2 md:mt-16 ms-12">
           <h3 className="text-2xl">5-year International Warranty </h3>

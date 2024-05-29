@@ -14,6 +14,7 @@ const Watches = () => {
       console.error(err);
     }
   }, []);
+
   return (
     <div>
       <h3 className="text-center">All Watches Data: {watches.length}</h3>

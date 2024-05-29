@@ -10,6 +10,8 @@ import Watches from '../../Shared/Watches/Watches';
 import WatchCardDetails from '../WatchCardDetails/WatchCardDetails';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
+import PrivateRoute from '../../PrivateRoute/PrivateRoute';
+import Watch from '../Watch/Watch';
 
 export const router = createBrowserRouter([
   {
@@ -45,8 +47,16 @@ export const router = createBrowserRouter([
         element: <Watches></Watches>,
       },
       {
+        path: '/watch',
+        element: <Watch></Watch>,
+      },
+      {
         path: '/details/:id',
-        element: <WatchCardDetails></WatchCardDetails>,
+        element: (
+          <PrivateRoute>
+            <WatchCardDetails></WatchCardDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/watches/${params.id}`),
       },
