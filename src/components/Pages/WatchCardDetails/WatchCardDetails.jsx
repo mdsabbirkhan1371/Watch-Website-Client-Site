@@ -6,8 +6,34 @@ const WatchCardDetails = () => {
 
   const { _id, name, photo, description, price, quantity, sellerName } = watch;
 
-  const handleDelete = id => {
+  const handleOrder = id => {
     console.log(id);
+    const watchDetails = { name: name, photo: photo, price: price };
+    try {
+      fetch(`http://localhost:5000/watches/${id}`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(watchDetails),
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          if (data.insertedId) {
+            Swal.fire({
+              position: 'top',
+              icon: 'success',
+              title: 'Your Order has been placed',
+              showConfirmButton: true,
+            });
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDelete = id => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -62,7 +88,12 @@ const WatchCardDetails = () => {
               >
                 Delete
               </button>
-              <button className="btn btn-primary join-item">Order Now</button>
+              <button
+                onClick={() => handleOrder(_id)}
+                className="btn btn-primary join-item"
+              >
+                Order Now
+              </button>
             </div>
           </div>
           <div></div>

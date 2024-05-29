@@ -11,26 +11,45 @@ const NavBar = () => {
 
   const navLinks = (
     <>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/addProduct">Add_Watch</NavLink>
-      </li>
-      <li>
-        <NavLink to="/watches">Watches</NavLink>
-      </li>
-      <li>
-        <NavLink to="/orders">Orders</NavLink>
-      </li>
-      <li>
-        <NavLink to="/contact">Contact</NavLink>
-      </li>
-      <li>
-        <NavLink to="/signUp">SignUp</NavLink>
-      </li>
+      {user ? (
+        <>
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/addProduct">Add_Watch</NavLink>
+          </li>
+          <li>
+            <NavLink to="/watches">Watches</NavLink>
+          </li>
+          <li>
+            <NavLink to="/orders">Orders</NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/watches">Watches</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
+          <li>
+            <NavLink to="/signUp">SignUp</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">

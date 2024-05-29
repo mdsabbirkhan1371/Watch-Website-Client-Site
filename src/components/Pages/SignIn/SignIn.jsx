@@ -8,7 +8,7 @@ const SignIn = () => {
   const { signInWithGoogle, signInWithEmailAndPass, error, setError } =
     useContext(AuthContext);
 
-  const naveigate = useNavigate();
+  const navigate = useNavigate();
 
   // sign in with google
 
@@ -40,8 +40,7 @@ const SignIn = () => {
         console.log(res.user);
         const user = res.user;
         if (user) {
-          toast('Login Successful');
-          naveigate('/');
+          navigate('/');
           form.reset();
         }
       })
