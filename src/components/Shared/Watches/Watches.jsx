@@ -16,8 +16,8 @@ const Watches = () => {
   }, []);
 
   return (
-    <div>
-      <h3 className="text-center">All Watches Data: {watches.length}</h3>
+    <div className="my-12">
+      <h3 className="text-center">All Watches : {watches.length}</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {watches.map(watch => (
