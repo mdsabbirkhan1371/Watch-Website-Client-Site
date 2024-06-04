@@ -26,13 +26,17 @@ const AddProduct = () => {
     // send data to database
 
     try {
-      fetch('http://localhost:5000/watches', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(watch),
-      })
+      fetch(
+        'https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/watches',
+        {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(watch),
+        }
+      )
         .then(res => res.json())
         .then(data => {
           console.log(data);

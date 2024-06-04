@@ -17,13 +17,17 @@ const SignUp = () => {
           toast('User Created Successfully');
         }
         const email = { email: user?.email };
-        fetch('http://localhost:5000/users', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(email),
-        });
+        fetch(
+          'https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/users',
+          {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify(email),
+          }
+        );
       })
       .catch(error => {
         console.error(error);
@@ -51,13 +55,16 @@ const SignUp = () => {
           toast('User Created Successfully');
           form.reset();
         }
-        fetch('http://localhost:5000/users', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(user),
-        });
+        fetch(
+          'https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/users',
+          {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify(user),
+          }
+        );
       })
       .catch(error => {
         console.error(error);

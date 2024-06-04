@@ -40,13 +40,17 @@ const UpdateProduct = () => {
     // update watch and send to server
 
     try {
-      fetch(`http://localhost:5000/watches/${_id}`, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(updateWatch),
-      })
+      fetch(
+        `https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/watches/${_id}`,
+        {
+          credentials: 'include',
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(updateWatch),
+        }
+      )
         .then(res => res.json())
         .then(data => {
           console.log(data);

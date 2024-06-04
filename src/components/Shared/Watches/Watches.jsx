@@ -5,7 +5,9 @@ const Watches = () => {
   const [watches, setWatches] = useState([]);
   useEffect(() => {
     try {
-      fetch('http://localhost:5000/watches')
+      fetch(
+        'https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/watches'
+      )
         .then(res => res.json())
         .then(data => {
           setWatches(data);

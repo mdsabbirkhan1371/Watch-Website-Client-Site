@@ -31,12 +31,17 @@ export const router = createBrowserRouter([
         path: '/updateProduct/:id',
         element: <UpdateProduct></UpdateProduct>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/watches/${params.id}`),
+          fetch(
+            `https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/watches/${params.id}`
+          ),
       },
       {
         path: '/orders',
         element: <Orders></Orders>,
-        loader: () => fetch('http://localhost:5000/orders'),
+        loader: () =>
+          fetch(
+            'https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/orders'
+          ),
       },
       {
         path: '/contact',
@@ -58,7 +63,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/watches/${params.id}`),
+          fetch(
+            `https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/watches/${params.id}`
+          ),
       },
       {
         path: '/signUp',

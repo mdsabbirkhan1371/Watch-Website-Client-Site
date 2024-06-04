@@ -10,13 +10,17 @@ const WatchCardDetails = () => {
     console.log(id);
     const watchDetails = { name: name, photo: photo, price: price };
     try {
-      fetch(`http://localhost:5000/watches/${id}`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(watchDetails),
-      })
+      fetch(
+        `https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/watches/${id}`,
+        {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(watchDetails),
+        }
+      )
         .then(res => res.json())
         .then(data => {
           console.log(data);
@@ -45,9 +49,12 @@ const WatchCardDetails = () => {
     }).then(result => {
       if (result.isConfirmed) {
         try {
-          fetch(`http://localhost:5000/watches/${id}`, {
-            method: 'DELETE',
-          })
+          fetch(
+            `https://watch-websites-server-site-4fm7hh36b-md-sabbir-khans-projects.vercel.app/watches/${id}`,
+            {
+              method: 'DELETE',
+            }
+          )
             .then(res => res.json())
             .then(data => {
               if (data.deletedCount > 0) {
